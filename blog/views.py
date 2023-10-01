@@ -57,6 +57,14 @@ def room(request):
 
 
 @login_required(login_url='login')
+def user_article(request):
+    if request.user.is_authenticated:
+        username=request.user.id
+        articles=Blog1.objects.filter(user=username)
+        return render(request, 'user_articles.html', {'articles':articles})
+
+
+@login_required(login_url='login')
 def create(request):
     if request.method=="POST":
         form=Blog_Form(request.POST)

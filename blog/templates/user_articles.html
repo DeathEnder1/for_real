@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block tile %}Your blogs{% endblock tile %}
+{% block content %}
+    <div>
+        <p>Your blogs</p>
+        <table>
+            <thead>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Image</th>
+                <th>Last Updated</th>
+                <th>Created</th>
+                <th>Delete</th>
+                <th>Edit</th>
+            </thead>
+            <tbody>
+                {% for article in articles %}
+                    <tr>
+                        <td>
+                            {{article.title}}
+                        </td>
+                        <td>
+                            {{article.content}}
+                        </td>
+                        <td>
+                            {{article.image}}
+                        </td>
+                        <td>
+                            {{article.last_update}}
+                        </td>
+                        <td>
+                            {{article.created}}
+                        </td>
+                        <td>
+                            <a href="/edit/{{ article.id }}">Update</a>
+                        </td>
+                        <td>
+                            <a href="/delete/{{ article.id }}">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

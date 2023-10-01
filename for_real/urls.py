@@ -26,6 +26,7 @@ urlpatterns = [
     path('',views.home),
     path('create/', views.create, name='create'),
     path('display/', views.room, name='room'),
+    path('user_articles/', views.user_article, name='user_articles'),
     path('edit/<int:id>', views.edit, name='edit'),
     path('delete/<int:id>', views.delete, name='delete'),
 ]
