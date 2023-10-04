@@ -22,6 +22,7 @@ def login_page(request):
         
         user=authenticate(request, username=usern, password=passw)
         if user is not None:
+            # request.session.set_expiry(86400)
             login(request, user)
             return redirect('/display')
         else:
