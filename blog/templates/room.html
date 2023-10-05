@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{%load static %}
 
 {% block tile %}Display{% endblock tile %}
 {% block content %}
@@ -47,5 +48,27 @@
                 {% endfor %}
             </tbody>
         </table>
+        {% if articles.has_other_pages %}
+            <ul>
+                {% if articles.has_previous %}
+                    <a href="?page={{articles.previous_page_number}}">&laquo;</a>
+                {%else%}
+                    <span>&laquo;</span>
+                {%endif%}
+
+                {% for i in articles.paginator.page_range %}
+                    {% if articles.number == i%}
+                        <span>{{i}}</span>
+                    {% else %}
+                        <a href="?page={{i}}">{{i}}</a>
+                    {% endif %}
+                {% endfor %}
+                {% if articles.has_next %}
+                    <a href="?page={{ articles.next_page_number }}">&raquo;</a>
+                {%else%}
+                    <span>&raquo;</span>
+                {%endif%}
+            </ul>
+        {%endif%}        
     </div>
 {% endblock %}

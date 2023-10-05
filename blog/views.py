@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 # Create your views here.
@@ -22,7 +23,6 @@ def login_page(request):
         
         user=authenticate(request, username=usern, password=passw)
         if user is not None:
-            # request.session.set_expiry(86400)
             login(request, user)
             return redirect('/display')
         else:
@@ -54,6 +54,15 @@ def home(request):
 @login_required(login_url='login')
 def room(request):
     articles= Blog1.objects.all()
+    page=request.GET.get('page',1)
+    paginator=Paginator(articles,5)
+    
+    try:
+        articles=paginator.page(page)
+    except PageNotAnInteger:
+        articles=paginator.page(1)
+    except EmptyPage:
+        articles=paginator.page(paginator.num_pages)
     return render(request, 'room.html', {'articles':articles})
 
 
@@ -62,6 +71,15 @@ def user_article(request):
     if request.user.is_authenticated:
         username=request.user.id
         articles=Blog1.objects.filter(user=username)
+        page=request.GET.get('page',1)
+        paginator=Paginator(articles,5)
+        
+        try:
+            articles=paginator.page(page)
+        except PageNotAnInteger:
+            articles=paginator.page(1)
+        except EmptyPage:
+            articles=paginator.page(paginator.num_pages)
         return render(request, 'user_articles.html', {'articles':articles})
 
 
