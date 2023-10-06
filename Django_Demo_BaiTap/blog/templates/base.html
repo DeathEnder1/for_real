@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block tile %}{%endblock%}</title>
+    
+    <link rel="stylesheet" href={% static "styling.css" %}>
+</head>
+<body>
+    <section>
+        <div class="Title">
+            <h2 class="test">testing</h2>
+        </div>
+
+        {% if request.user.is_authenticated %}
+            <p>Hello {{request.user}}</p>
+            <div>
+                <a href="{% url 'logout' %}">Logout</a>  
+            </div>
+            
+        {% else %}
+            <div>
+                <a href="{% url 'login'%}">Login</a>
+            </div>
+        {% endif %}
+        <div>
+            <a href="{% url 'room'%}">Blogs</a>
+        </div>
+        <div>
+            <a href="{% url 'user_articles'%}">Your blogs</a>
+        </div>
+        <div>
+            <a href="{% url 'create'%}">Create blog</a>
+        </div>
+        <div>
+            <a href="{% url 'users' %}">Updating Profile</a>
+        </div>
+    </section>
+    {% block content %}{% endblock %}
+</body>
+</html>

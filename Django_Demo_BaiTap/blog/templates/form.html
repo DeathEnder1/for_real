@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block tile %}form{% endblock tile %}
+
+{% block content%}
+<div>
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{form.as_p}}
+        {{form.error}}
+        <a href="{{request.META.HTTP_REFERER}}">Return</a>
+        <input type="submit" name="update_clicked" value="submit">
+    </form>
+</div>
+{% endblock %}

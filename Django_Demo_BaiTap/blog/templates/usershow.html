@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block tile %}UserShow{% endblock tile %}
+
+{% block content %}
+<div>
+    <h2>Update Profile</h2>
+    <!-- <p>User:{{request.user.id}}</p>
+    <p>ArticleUser:{{user.id}}</p> -->
+    <!-- <form method="POST">
+    {% csrf_token %}
+    <h3>{{user.username}}</h3>
+        {{form.as_p}}
+        <input type="submit" value="submit">
+    </form> -->
+    <!-- <p>
+        {{user.username}}
+    </p>
+    <p>
+        {{user.first_name}}
+    </p> -->
+        <p>{{user.username}}</p>
+        <p>FirstName : {{user.first_name}}</p>
+        <p>LastName : {{user.last_name}}</p>
+        <p>Email : {{user.email}}</p>
+        <a href="userp/">Edit Profile</a>
+</div>
+{% endblock content %}
