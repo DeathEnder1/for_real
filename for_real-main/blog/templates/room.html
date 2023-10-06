@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{%load static %}
+
+{% block tile %}Display{% endblock tile %}
+{% block content %}
+    <div>
+        <table>
+            <thead>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Image</th>
+                <th>Last Updated</th>
+                <th>Created</th>
+                <th>User</th>
+                <th>Delete</th>
+                <th>Edit</th>
+            </thead>
+            <tbody>
+                {% for article in articles %}
+                    <tr>
+                        <td>
+                            {{article.title}}
+                        </td>
+                        <td>
+                            {{article.content}}
+                        </td>
+                        <td>
+                            {{article.image}}
+                        </td>
+                        <td>
+                            {{article.last_update}}
+                        </td>
+                        <td>
+                            {{article.created}}
+                        </td>
+                        <td>
+                            <a href="/user_page/{{article.user.id}}">{{article.user}}</a>
+                        </td>
+                        <td>
+                            <a href="/edit/{{ article.id }}">Update</a>
+                        </td>
+                        <td>
+                            <a href="/delete/{{ article.id }}">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% if articles.has_other_pages %}
+            <ul>
+                {% if articles.has_previous %}
+                    <a href="?page={{articles.previous_page_number}}">&laquo;</a>
+                {%else%}
+                    <span>&laquo;</span>
+                {%endif%}
+
+                {% for i in articles.paginator.page_range %}
+                    {% if articles.number == i%}
+                        <span>{{i}}</span>
+                    {% else %}
+                        <a href="?page={{i}}">{{i}}</a>
+                    {% endif %}
+                {% endfor %}
+                {% if articles.has_next %}
+                    <a href="?page={{ articles.next_page_number }}">&raquo;</a>
+                {%else%}
+                    <span>&raquo;</span>
+                {%endif%}
+            </ul>
+        {%endif%}        
+    </div>
+{% endblock %}
