@@ -1,5 +1,5 @@
 body{
-    background-color: #ffffff;
+    background-color: #aa7979;
 }
 
 .pagination{
@@ -12,6 +12,11 @@ body{
     text-decoration: none;
     border: 1px;
 }
-/* .Title{
-    background-color: #d5ee5b;
-} */
+
+.login_form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100%;
+    width: 100%;
+}

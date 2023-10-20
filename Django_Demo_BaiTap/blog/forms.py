@@ -2,6 +2,7 @@ from django import forms
 from .models import Blog1
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
+from django.core.validators import validate_email
 
 class Blog_Form(forms.ModelForm):
     class Meta:
@@ -23,6 +24,4 @@ class Blog_Form(forms.ModelForm):
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = [
-                    'first_name','last_name','email'        
-                ]
+        fields = ['first_name','last_name','email']

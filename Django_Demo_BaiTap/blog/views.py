@@ -66,7 +66,7 @@ def room(request):
     except EmptyPage:
         articles=paginator.page(paginator.num_pages)
     return render(request, 'room.html', {'articles':articles})
-
+    
 
 @login_required(login_url='login')
 def user_article(request):

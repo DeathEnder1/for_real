@@ -15,7 +15,7 @@
         </div>
 
         {% if request.user.is_authenticated %}
-            <p>Hello {{request.user}}</p>
+            <p>Hello <a href="{% url 'users' %}">{{request.user}}</a></p>
             <div>
                 <a href="{% url 'logout' %}">Logout</a>  
             </div>
@@ -26,6 +26,9 @@
             </div>
         {% endif %}
         <div>
+            <a href="{% url 'home'%}">Home</a>
+        </div>
+        <div>
             <a href="{% url 'room'%}">Blogs</a>
         </div>
         <div>
@@ -35,7 +38,7 @@
             <a href="{% url 'create'%}">Create blog</a>
         </div>
         <div>
-            <a href="{% url 'users' %}">Updating Profile</a>
+            <a href="{% url 'users' %}">Update Profile</a>
         </div>
     </section>
     {% block content %}{% endblock %}
