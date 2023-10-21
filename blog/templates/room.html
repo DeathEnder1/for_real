@@ -12,8 +12,8 @@
                 <th>Last Updated</th>
                 <th>Created</th>
                 <th>User</th>
-                <th>Delete</th>
                 <th>Edit</th>
+                <th>Delete</th>
             </thead>
             <tbody>
                 {% for article in articles %}
@@ -34,7 +34,7 @@
                             {{article.created}}
                         </td>
                         <td>
-                            {{article.user}}
+                            <a href="/userp/{{article.user.id}}"></a>{{article.user}}
                         </td>
                         <td>
                             <a href="/edit/{{ article.id }}">Update</a>
