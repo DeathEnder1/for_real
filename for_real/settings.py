@@ -49,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'blog.middleware.Blog1DeletedMiddleware'
 ]
 
 ROOT_URLCONF = 'for_real.urls'
@@ -80,7 +81,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'dtb',
         'USER':'root',
-        'PASSWORD':'quy1412003',
+        'PASSWORD':'',
         'HOST':'localhost',
         'PORT':'3306',
     }

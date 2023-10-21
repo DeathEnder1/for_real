@@ -1,13 +1,15 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Blog1
-from .forms import Blog_Form
+from .forms import Blog_Form,UserForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.sessions.models import Session
+
 
 
 # Create your views here.
@@ -102,21 +104,62 @@ def create(request):
 def edit(request, id):
     articles= Blog1.objects.get(id=id)
     form=Blog_Form(instance=articles)
-    if request.user!=articles.user:
-        return HttpResponse("You cannot edit this article")
     if request.method=="POST":
-        form=Blog_Form(request.POST, instance=articles)
-        if form.is_valid():
-            form.save()
-            return redirect("/display")
+        if request.user.is_superuser or request.user == articles.user:
+            form=Blog_Form(request.POST,instance=articles)
+            if form.is_valid():
+                form.save()
+                return redirect("/display")
+        elif request.user!=articles.user:
+            return HttpResponse("You cannot edit this article")
     return render(request, 'form.html',{'form':form})
 
 @login_required(login_url='login')
 def delete(request, id):
     articles=Blog1.objects.get(id=id)
-    if request.user!=articles.user:
-        return HttpResponse("You cannot delete this article")
     if request.method=="POST":
-        articles.delete()
-        return redirect('/display')
+        if request.user.is_superuser or request.user == articles.user:
+            articles.delete()
+            return redirect('/display')
+        elif request.user!=articles.user:
+            return HttpResponse("You cannot delete this article")
     return render(request, 'delete.html', {'articles':articles})
+
+# @login_required(login_url='login')
+# def users(request,id):
+#     session = request.session.get('_auth_user_id')
+#     user = User.objects.get(id=session)
+#     # articles = user.objects.get(id=id)
+#     # context = {'user':user}
+#     return render(request,'usershow.html',{'user':user})
+@login_required(login_url='login')
+def users(request):
+    session = request.session.get('_auth_user_id')
+    user = User.objects.get(id=session)
+    return render(request, 'usershow.html', {'user': user})
+
+@login_required(login_url='login')
+def usera(request,id):
+    user = User.objects.get(id=id)
+    return render(request, 'useranother.html', {'user': user})
+
+@login_required(login_url='login')
+def userp(request):
+    session = request.session.get('_auth_user_id')
+    user = User.objects.get(id=session)
+    form = UserForm(instance=user)
+    if request.method == "POST":
+        form = UserForm(request.POST,instance=user)
+        if form.is_valid():
+                # userprofile=form.save(commit=False)
+                # userprofile.user = session
+                # userprofile.save()
+                form.save()
+                return redirect('/users/')
+    else: 
+        form=UserForm()
+    return render(request,'userpage.html',{'form':form})
+
+    
+       
+

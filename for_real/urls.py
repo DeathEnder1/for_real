@@ -29,4 +29,8 @@ urlpatterns = [
     path('user_articles/', views.user_article, name='user_articles'),
     path('edit/<int:id>', views.edit, name='edit'),
     path('delete/<int:id>', views.delete, name='delete'),
+    path('users/', views.users, name='users'),
+    path('usera/',views.usera,name='usera'),
+    path('userp/',views.userp,name='userp')
 ]
+
